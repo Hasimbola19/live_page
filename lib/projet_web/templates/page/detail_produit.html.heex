@@ -1,0 +1,35 @@
+<div class="detail_prod">
+    <div class="detail_produit">
+        <div class="zoom" onmousemove="zoom(event)" style={"background-image: url(#{Routes.static_path(@socket, "/images/2.jpg")})"}>
+            <img src={Routes.static_path(@socket, "/images/2.jpg")} />
+        </div>
+        <div class="information_produit">
+            <h3>Informations sur le produit</h3>
+                <table>
+                    <tr>
+                        <td><h3>Désignation</h3></td>
+                        <td colspan="2"><p>Lorem ipsum dolor sit ahmet</p></td>
+                    </tr>
+                    <tr>
+                        <td><h4>Déscription</h4></td>
+                        <td colspan="2"><p>Lorem ipsum dolor sit ahmet</p></td>
+                    </tr>
+                    <tr>
+                        <td><p>Prix unitaire : </p></td>
+                        <td colspan="2"><%= @prix_unitaire %></td>
+                    </tr>
+                    <tr>
+                        <td><p>Prix total : </p></td>
+                        <td colspan="2"><%= @prix_total %></td>
+                    </tr>
+                </table>
+                <table>
+                    <tr>
+                        <td><button phx-click="sub"><i class="fas fa-minus"></i></button></td>
+                        <td> <%= @quantite %> </td>
+                        <td><button phx-click="add"><i class="fas fa-plus"></i></button></td>
+                    </tr>
+                </table>
+            </div>
+    </div>
+</div>

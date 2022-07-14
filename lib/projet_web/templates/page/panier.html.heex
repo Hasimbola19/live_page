@@ -1,0 +1,64 @@
+<div class="panier-page">
+    <div class="gauche">
+    <h2>Détail de la commande</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Images</th>
+                    <th>Nom</th>
+                    <th>Prix Unitaire</th>
+                    <th>Prix total</th>
+                    <th></th>
+                    <th>Quantités</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td><%= @prix_unitaire %></td>
+                    <td><%= @prix_total %></td>
+                    <td>
+                        <button phx-click="sub" onclick="sub()">
+                            <i class="fas fa-minus"></i>
+                        </button>
+                    </td>
+                    <td id="quantite">
+                        <form>
+                            <input type="hidden" name="quantite"/>
+                        </form>
+                        <%= @quantite %>
+                    </td>
+                    <td>
+                        <button phx-click="add" onclick="add()">
+                            <i class="fas fa-plus"></i>
+                        </button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="droite">
+        <div class="detail_commande">
+            <table >
+                <tr>
+                    <td>Désignation</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>Prix unitaire</td>
+                    <td><%= @prix_unitaire %></td>
+                </tr>
+                <tr>
+                    <td>Prix total</td>
+                    <td><%= @prix_total %></td>
+                </tr>
+            </table>
+            <form method="post" action="">
+                <input type="hidden" name="_csrf_token" value={Plug.CSRFProtection.get_csrf_token()}>
+                <button type="submit">Valider la commande</button>
+            </form>
+        </div>
+    </div>
+</div>

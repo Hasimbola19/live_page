@@ -1,0 +1,96 @@
+   <header>
+      <div class="recherche">
+        <form method="post" class="" action={:search}>
+          <input type="hidden" name="_csrf_token" value={Plug.CSRFProtection.get_csrf_token()}>
+          <input type="search" name="search" class="label" placeholder="Recherche des produits...">
+          <button type="submit" class="loupe"><i class="fas fa-search"></i></button>
+        </form>
+      </div>
+      <nav class="navbar">
+        <div class="logo">
+          <a><%= live_redirect "Logo", to: Routes.index_path(@socket, :index) %></a>
+        </div>
+        <div class="link">
+          <ul>
+            <li><%= live_redirect "Accueil", to: Routes.index_path(@socket, :index) %></li>
+            <li><%= live_redirect "Boutique", to: Routes.produit_path(@socket, :produit) %></li>
+            <li><%= live_redirect "Contact", to: Routes.contact_path(@socket, :contact) %></li>
+            <%= if false do %>
+              <li><%= live_redirect "Compte", to: Routes.compte_path(@socket, :compte) %></li>
+            <% else %>
+              <li><%= live_redirect "Connexion", to: Routes.connexion_path(@socket, :connexion) %></li>
+            <% end %>
+            <a id="panier"><i class="fas fa-search"></i></a>
+          </ul>
+        </div>
+        <div class="panier">
+          <p><a data-phx-link="redirect" data-phx-link-state="push" href="/panier" class="fas fa-shopping-cart"></a></p>
+        </div>
+      </nav>
+    </header>
+<main class="container">
+  <p class="alert alert-info" role="alert"
+    phx-click="lv:clear-flash"
+    phx-value-key="info"><%= live_flash(@flash, :info) %></p>
+
+  <p class="alert alert-danger" role="alert"
+    phx-click="lv:clear-flash"
+    phx-value-key="error"><%= live_flash(@flash, :error) %></p>
+
+  <%= @inner_content %>
+</main>
+<footer>
+  <div class="footer">
+    <div class="contact">
+    <a data-phx-link="redirect" data-phx-link-state="push" href="https://www.instagram.com">
+      <span class="fa-stack fa-2x">
+        <i class="fas fa-circle fa-stack-2x log"></i>
+        <i class="fab fa-instagram fa-stack-1x fa-inverse"></i>
+      </span>
+    </a>   
+    <a data-phx-link="redirect" data-phx-link-state="push" href="https://www.facebook.com">
+      <span class="fa-stack fa-2x">
+        <i class="fas fa-circle fa-stack-2x log"></i>
+        <i class="fab fa-facebook-f fa-stack-1x fa-inverse"></i>
+      </span>
+    </a>
+    <a data-phx-link="redirect" data-phx-link-state="push" href="https://www.twitter.com">
+      <span class="fa-stack fa-2x">
+        <i class="fas fa-circle fa-stack-2x log"></i>
+        <i class="fab fa-twitter fa-stack-1x fa-inverse"></i>
+      </span>
+    </a>
+    <a data-phx-link="redirect" data-phx-link-state="push" href="https://www.linkedin.com">
+      <span class="fa-stack fa-2x">
+        <i class="fas fa-circle fa-stack-2x"></i>
+        <i class="fab fa-linkedin fa-stack-1x fa-inverse"></i>
+      </span>
+    </a>
+    </div>
+    <div class="menu">
+        <a><%= live_redirect "Accueil", to: Routes.index_path(@socket, :index) %></a>
+        <a><%= live_redirect "Boutique", to: Routes.produit_path(@socket, :produit) %></a>
+        <a><%= live_redirect "Contact", to: Routes.contact_path(@socket, :contact) %></a>
+        <%= if false do %>
+          <a><%= live_redirect "Compte", to: Routes.compte_path(@socket, :compte) %></a>
+        <% else %>
+          <a><%= live_redirect "Connexion", to: Routes.connexion_path(@socket, :connexion) %></a>
+        <% end %>
+    </div>
+    <div class="copyright">
+      <p>&copy; 2022 Hasimbola RAKOTOSON</p>
+    </div> 
+  </div>
+</footer>
+<script>
+ /* $("#panier").click(function() {
+    $(".recherche").toggleClass("overlay");
+    $(".navbar").toggleClass("active-navbar");
+    $("#panier").toggleClass("none");
+  });
+  $(".loupe").click(function() {
+    $(".recherche").toggleClass("overlay");
+    $(".navbar").toggleClass("active-navbar");
+    $("#panier").toggleClass("none");
+  })*/
+</script>

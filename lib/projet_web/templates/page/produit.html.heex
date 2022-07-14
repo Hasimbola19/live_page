@@ -1,0 +1,20 @@
+<div class="produits">
+    <div class="articles">
+        <%= for i <- 1..10 do %>
+            <div class="produit">
+            <a data-phx-link="redirect" data-phx-link-state="push" href="/detail_produits/1">
+                <img alt="Image" src={Routes.static_path(@socket, "/images/2.jpg")}>
+                <p>Lorem ipsum dolor sit ahmet</p>
+                <p class="prix">0.5 $</p>
+            </a>            
+                <div class="overlay-cart">
+                    <form phx-submit="add">
+                        <input type="text" name="quantite"/>
+                        <input type="submit" value="Add to cart" />
+                    </form>
+                    <!--<a phx-click="add"><i class="fas fa-shopping-cart"></i> Add to cart</a>-->
+                </div>
+            </div>
+        <% end %>
+    </div>
+</div>

@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <%= csrf_meta_tag() %>
+    <%= live_title_tag assigns[:page_title] || "Vente", suffix: " · Velo" %>
+    <link phx-track-static rel="stylesheet" href={Routes.static_path(@conn, "/assets/app.css")}/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"/>
+    <script defer phx-track-static type="text/javascript" src={Routes.static_path(@conn, "/assets/app.js")}></script>
+    <script
+      src="https://code.jquery.com/jquery-3.6.0.min.js"
+      integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+    crossorigin="anonymous"></script>
+  </head>
+  <body>
+    <%= @inner_content %>
+  </body>
+  <script>
+    $("#panier").click(function() {
+      $(".recherche").toggleClass("overlay");
+      $(".navbar").toggleClass("active-navbar");
+      $("#panier").toggleClass("none");
+    });
+    $(".loupe").click(function() {
+      $(".recherche").toggleClass("overlay");
+      $(".navbar").toggleClass("active-navbar");
+      $("#panier").toggleClass("none");
+    })
+  </script>
+  <script>
+    function zoom(e){
+        var zoomer = e.currentTarget;
+        e.offsetX ? offsetX = e.offsetX : offsetX = e.touches[0].pageX
+        e.offsetY ? offsetY = e.offsetY : offsetX = e.touches[0].pageX
+        x = offsetX/zoomer.offsetWidth*100
+        y = offsetY/zoomer.offsetHeight*100
+        zoomer.style.backgroundPosition = x + '% ' + y + '%';
+    }
+  </script>
+  <script>
+    function add() {
+    quantite = parseInt(document.getElementById("quantite").innerHTML)
+    csrf = document.querySelector("meta[name=csrf]").content
+    if (quantite < 10) {
+      quantite += 1
+      document.getElementById("quantite").innerHTML = quantite
+
+      $.ajax({
+        url: "/paniers",
+        type: "post",
+        data: {
+          post: {quantite: quantite}
+        },
+        headers: {
+          "X-CSRF-TOKEN": csrf
+        },
+        success: function() {
+          console.log("success")
+        }
+      })
+    }
+  }
+
+  function sub() {
+    quantite = parseInt(document.getElementById("quantite").innerHTML)
+    csrf = document.querySelector("meta[name=csrf]").content
+    if (quantite > 0) {
+      quantite -= 1
+      document.getElementById("quantite").innerHTML = quantite
+
+      $.ajax({
+        url: "/paniers",
+        type: "post",
+        data: {
+          post: {quantite: quantite}
+        },
+        headers: {
+          "X-CSRF-TOKEN": csrf
+        },
+        success: function() {
+          console.log("success")
+        }
+      })
+    }
+  }
+</script>
+</html>
