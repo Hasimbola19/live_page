@@ -24,7 +24,7 @@
           </ul>
         </div>
         <div class="panier">
-          <p><a data-phx-link="redirect" data-phx-link-state="push" href="/panier" class="fas fa-shopping-cart"></a></p>
+          <p><a data-phx-link="redirect" data-phx-link-state="push" href="/panier" class="fas fa-shopping-cart">(<%= @quantite %>)</a></p>
         </div>
       </nav>
     </header>
@@ -82,15 +82,3 @@
     </div> 
   </div>
 </footer>
-<script>
- /* $("#panier").click(function() {
-    $(".recherche").toggleClass("overlay");
-    $(".navbar").toggleClass("active-navbar");
-    $("#panier").toggleClass("none");
-  });
-  $(".loupe").click(function() {
-    $(".recherche").toggleClass("overlay");
-    $(".navbar").toggleClass("active-navbar");
-    $("#panier").toggleClass("none");
-  })*/
-</script>

@@ -25,9 +25,17 @@
                 </table>
                 <table>
                     <tr>
-                        <td><button phx-click="sub"><i class="fas fa-minus"></i></button></td>
+                        <td>
+                            <form phx-submit="dec">
+                                <button>-</button> 
+                            </form>
+                        </td>
                         <td> <%= @quantite %> </td>
-                        <td><button phx-click="add"><i class="fas fa-plus"></i></button></td>
+                        <td>
+                            <form phx-submit="inc">
+                                <button>+</button>
+                            </form>
+                        </td>
                     </tr>
                 </table>
             </div>

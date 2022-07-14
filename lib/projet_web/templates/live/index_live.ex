@@ -10,6 +10,18 @@ defmodule ProjetWeb.Live.IndexLive do
     }
   end
 
+  def handle_info({:live_session_updated, session}, socket) do
+    {:noreply, put_session_assigns(socket, session)}
+  end
+
+  defp put_session_assigns(socket, session) do
+    socket
+    |> assign(
+      shopping_cart: Map.get(session, "shopping_cart", []),
+      quantite: Map.get(session, "quantite", 0)
+    )
+  end
+
   def render(assigns) do
     ProjetWeb.PageView.render("index.html", assigns)
   end

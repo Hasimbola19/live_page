@@ -17,27 +17,22 @@
                 <tr>
                     <td></td>
                     <td></td>
-                    <td><%= @prix_unitaire %></td>
-                    <td><%= @prix_total %></td>
+                    <td></td>
+                    <td></td>
                     <td>
-                        <button phx-click="sub" onclick="sub()">
-                            <i class="fas fa-minus"></i>
-                        </button>
-                    </td>
-                    <td id="quantite">
-                        <form>
-                            <input type="hidden" name="quantite"/>
+                        <form phx-submit="dec">
+                            <button>-</button> 
                         </form>
-                        <%= @quantite %>
                     </td>
+                    <td><%= @quantite %></td>
                     <td>
-                        <button phx-click="add" onclick="add()">
-                            <i class="fas fa-plus"></i>
-                        </button>
+                        <form phx-submit="inc">
+                            <button>+</button>
+                        </form>
                     </td>
                 </tr>
             </tbody>
-        </table>
+        </table>        
     </div>
     <div class="droite">
         <div class="detail_commande">
@@ -48,11 +43,11 @@
                 </tr>
                 <tr>
                     <td>Prix unitaire</td>
-                    <td><%= @prix_unitaire %></td>
+                    <td> <%= @prix_unitaire %> </td>
                 </tr>
                 <tr>
                     <td>Prix total</td>
-                    <td><%= @prix_total %></td>
+                    <td> <%= @prix_total %> </td>
                 </tr>
             </table>
             <form method="post" action="">

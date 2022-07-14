@@ -1,43 +1,61 @@
 defmodule ProjetWeb.Live.DetailProduitLive do
   use Phoenix.LiveView
 
-  def mount(params, _session, socket) do
-    IO.inspect params
-    quantite = 0
-    prix_unitaire = 0.5
-    prix_total = 0
-    {:ok,
-      socket |> assign(quantite: quantite, prix_total: prix_total, prix_unitaire: prix_unitaire) ,layout: {ProjetWeb.LayoutView, "live.html"}
-    }
+  def mount(params, session, socket) do
+    socket =
+      socket
+      |> PhoenixLiveSession.maybe_subscribe(session)
+      |> put_session_assigns(session)
+
+    {:ok, socket, layout: {ProjetWeb.LayoutView, "live.html"}}
   end
 
-  def handle_event("sub", _params, socket) do
-    number = socket.assigns.quantite
-    prix_unitaire = socket.assigns.prix_unitaire
-    if number > 1 do
-      number = number - 1
-      prix_total = number * prix_unitaire
-      IO.inspect prix_total
-      {:noreply,
-        socket |> assign(quantite: number, prix_total: prix_total, prix_unitaire: prix_unitaire)
-      }
+  def handle_info({:live_session_updated, session}, socket) do
+    {:noreply, put_session_assigns(socket, session)}
+  end
+
+  def handle_event("add_to_cart", params, socket) do
+    updated_cart = [params["product_id"] | socket.assigns.shopping_cart]
+
+    PhoenixLiveSession.put_session(socket, "shopping_cart", updated_cart)
+
+    {:noreply, socket}
+  end
+
+  def handle_event("inc", _, socket) do
+    quantite = socket.assigns.quantite
+    prix_unitaire = socket.assigns.prix_unitiare
+    quantite = quantite + 1
+    prix_total = prix_unitaire * quantite
+    PhoenixLiveSession.put_session(socket, "quantite", quantite)
+    PhoenixLiveSession.put_session(socket, "prix_unitaire", prix_unitaire)
+    PhoenixLiveSession.put_session(socket, "prix_total", prix_total)
+    {:noreply, socket}
+  end
+
+  def handle_event("dec", _, socket) do
+    quantite = socket.assigns.quantite
+    prix_unitaire = socket.assigns.prix_unitiare
+    if quantite > 0 do
+      quantite = quantite - 1
+      prix_total = prix_unitaire * quantite
+      PhoenixLiveSession.put_session(socket, "quantite", quantite)
+      PhoenixLiveSession.put_session(socket, "prix_unitaire", prix_unitaire)
+      PhoenixLiveSession.put_session(socket, "prix_total", prix_total)
+      {:noreply, socket}
     else
-      prix_total = number * prix_unitaire
-      {:noreply,
-        socket |> assign(quantite: number, prix_total: prix_total, prix_unitaire: prix_unitaire)
-      }
+      {:noreply, socket}
     end
   end
 
-  def handle_event("add", _params, socket) do
-    number = socket.assigns.quantite
-    prix_unitaire = socket.assigns.prix_unitaire
-    number = number + 1
-    prix_total = number * prix_unitaire
-    IO.inspect prix_total
-    {:noreply,
-      socket |> assign(quantite: number, prix_total: prix_total, prix_unitaire: prix_unitaire)
-    }
+  defp put_session_assigns(socket, session) do
+    socket
+    |> assign(
+      shopping_cart: Map.get(session, "shopping_cart", []),
+      quantite: Map.get(session, "quantite", 0),
+      prix_unitaire: Map.get(session, "prix_unitaire", 1),
+      prix_total: Map.get(session, "prix_total", 0)
+    )
   end
 
   def render(assigns) do
