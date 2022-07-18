@@ -1,11 +1,11 @@
-defmodule ProjetWeb.Live.CompteLive do
+defmodule ProjetWeb.Live.ConnexionLive do
   use Phoenix.LiveView
 
   def mount(_params, session, socket) do
     if connected?(socket), do: self() |> IO.inspect(label: "pid")
-    IO.inspect socket.transport_pid
-    IO.inspect socket.view
-    IO.inspect socket.redirected
+    # IO.inspect socket.transport_pid
+    # IO.inspect socket.view
+    # IO.inspect socket.redirected
     IO.inspect socket.private
     socket =
       socket
@@ -19,7 +19,6 @@ defmodule ProjetWeb.Live.CompteLive do
     list_of_assigns
     |> IO.inspect(label: "PRELOAD")
   end
-
   def handle_info({:live_session_updated, session}, socket) do
     {:noreply, put_session_assigns(socket, session)}
   end
@@ -34,6 +33,6 @@ defmodule ProjetWeb.Live.CompteLive do
   end
 
   def render(assigns) do
-    ProjetWeb.PageView.render("compte.html", assigns)
+    ProjetWeb.PageView.render("connexion.html", assigns)
   end
 end

@@ -24,9 +24,31 @@ import "phoenix_html"
 import {Socket} from "phoenix"
 import {LiveSocket} from "phoenix_live_view"
 import topbar from "../vendor/topbar"
+import script from "./script.js"
+
 
 let csrfToken = document.querySelector("meta[name='csrf-token']").getAttribute("content")
-let liveSocket = new LiveSocket("/live", Socket, {params: {_csrf_token: csrfToken}})
+
+const Hooks = {}
+Hooks.Script = {
+    mounted() {
+        // const link = this.el
+        $(document).ready(function(){
+            $("#panier").click(function() {
+                $(".recherche").toggleClass("overlay");
+                $(".navbar").toggleClass("active-navbar");
+                $("#panier").toggleClass("none");
+            });
+            $(".loupe").click(function() {
+                $(".recherche").toggleClass("overlay");
+                $(".navbar").toggleClass("active-navbar");
+                $("#panier").toggleClass("none");
+            })
+        })
+    }
+}
+
+let liveSocket = new LiveSocket("/live", Socket, {params: {_csrf_token: csrfToken}, hooks: Hooks})
 
 // Show progress bar on live navigation and form submits
 topbar.config({barColors: {0: "#29d"}, shadowColor: "rgba(0, 0, 0, .3)"})

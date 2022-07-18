@@ -2,13 +2,22 @@ defmodule ProjetWeb.Live.PanierLive do
   use Phoenix.LiveView
 
   def mount(_params, session, socket) do
-
+    if connected?(socket), do: self() |> IO.inspect(label: "pid")
+    IO.inspect socket.transport_pid
+    IO.inspect socket.view
+    IO.inspect socket.redirected
+    IO.inspect socket.private
     socket =
       socket
       |> PhoenixLiveSession.maybe_subscribe(session)
       |> put_session_assigns(session)
 
     {:ok, socket, layout: {ProjetWeb.LayoutView, "live.html"}}
+  end
+
+  def preload(list_of_assigns) do
+    list_of_assigns
+    |> IO.inspect(label: "PRELOAD")
   end
 
   def handle_info({:live_session_updated, session}, socket) do

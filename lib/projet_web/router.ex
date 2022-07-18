@@ -17,13 +17,12 @@ defmodule ProjetWeb.Router do
   scope "/", ProjetWeb do
     pipe_through :browser
 
-    # get "/", PageController, :index
-    # get "/produits", PageController, :produit
-    # get "/contact", PageController, :contact
-    # get "/compte", PageController, :compte
-    # get "/connexion", PageController, :connexion
-    # get "/inscription", PageController, :inscription
-
+    # live "/", PageController, :index
+    # live "/produits", PageController, :produit
+    # live "/contact", PageController, :contact
+    # live "/compte", PageController, :compte
+    # live "/connexion", PageController, :connexion
+    # live "/inscription", PageController, :inscription
 
     live "/", Live.IndexLive, :index
     live "/panier", Live.PanierLive, :panier

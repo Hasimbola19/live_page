@@ -1,12 +1,12 @@
    <header>
-      <div class="recherche">
+      <div class="recherche" id="recherche">
         <form method="post" class="" action={:search}>
           <input type="hidden" name="_csrf_token" value={Plug.CSRFProtection.get_csrf_token()}>
           <input type="search" name="search" class="label" placeholder="Recherche des produits...">
           <button type="submit" class="loupe"><i class="fas fa-search"></i></button>
         </form>
       </div>
-      <nav class="navbar">
+      <nav class="navbar" id="navbar">
         <div class="logo">
           <a><%= live_redirect "Logo", to: Routes.index_path(@socket, :index) %></a>
         </div>
@@ -71,7 +71,7 @@
         <a><%= live_redirect "Accueil", to: Routes.index_path(@socket, :index) %></a>
         <a><%= live_redirect "Boutique", to: Routes.produit_path(@socket, :produit) %></a>
         <a><%= live_redirect "Contact", to: Routes.contact_path(@socket, :contact) %></a>
-        <%= if false do %>
+        <%= if true do %>
           <a><%= live_redirect "Compte", to: Routes.compte_path(@socket, :compte) %></a>
         <% else %>
           <a><%= live_redirect "Connexion", to: Routes.connexion_path(@socket, :connexion) %></a>
@@ -81,4 +81,17 @@
       <p>&copy; 2022 Hasimbola RAKOTOSON</p>
     </div> 
   </div>
+  <div id="link" phx-hook="Script"></div>
+    <script>
+    $("#panier").click(function() {
+      $(".recherche").toggleClass("overlay");
+      $(".navbar").toggleClass("active-navbar");
+      $("#panier").toggleClass("none");
+    });
+    $(".loupe").click(function() {
+      $(".recherche").toggleClass("overlay");
+      $(".navbar").toggleClass("active-navbar");
+      $("#panier").toggleClass("none");
+    })
+  </script>
 </footer>
